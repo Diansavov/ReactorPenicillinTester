@@ -1,0 +1,9 @@
+.penicillinButton{
+    background-image: 
+    linear-gradient(145deg, #7cd68a, #75d452, #c0f0a6, #b5e892);
+    background-clip: text;
+    color: transparent;
+}
+.penicillinButton:hover{
+    border-color: #7cd68a;
+}

@@ -1,34 +1,35 @@
 import js from "@eslint/js";
 import globals from "globals";
 import pluginReact from "eslint-plugin-react";
+import tsParser from "@typescript-eslint/parser";
+import tsPlugin from "@typescript-eslint/eslint-plugin";
 import { defineConfig } from "eslint/config";
 
 export default defineConfig([
   {
-    files: ["**/*.{js,mjs,cjs,jsx}"],
-    plugins: { js },
-    extends: ["js/recommended"],
-    languageOptions: { globals: globals.browser },
-    rules: {
-      // Treat fatal runtime problems as errors
-      "no-undef": "error",
-      "no-redeclare": "error",
-      "no-unused-expressions": "error",
-
-      // Treat optimization / style as warnings
-      "no-unused-vars": "warn",
-      "no-console": "warn",
-      "complexity": ["warn", { "max": 10 }]
+    files: ["**/*.{js,jsx}"],
+    languageOptions: {
+      parser: tsParser,
+      parserOptions: {
+        ecmaVersion: "latest",
+        sourceType: "module",
+        ecmaFeatures: { jsx: true },
+        project: "./tsconfig.json", // ✅ enables type-aware linting
+      },
+      globals: globals.browser,
     },
-  },
-  {
-    ...pluginReact.configs.flat.recommended,
+    plugins: {
+      react: pluginReact,
+      "@typescript-eslint": tsPlugin,
+    },
+    extends: [
+      js.configs.recommended,
+      ...pluginReact.configs.flat.recommended,
+      "plugin:@typescript-eslint/recommended-type-checked",
+    ],
     rules: {
-      ...pluginReact.configs.flat.recommended.rules,
-
-      "react/react-in-jsx-scope": "off",   // JSX React import not required
-      "react/prop-types": "off",           // Optional
-      "react/jsx-no-target-blank": "off", // Optional
+      "react/react-in-jsx-scope": "off",
+      "react/prop-types": "off",
     },
   },
 ]);

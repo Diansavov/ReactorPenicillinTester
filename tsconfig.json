@@ -1,0 +1,10 @@
+{
+    "compilerOptions": {
+      "checkJs": true,       // ✅ analyze JS files
+      "allowJs": true,       // ✅ include .js and .jsx
+      "jsx": "react-jsx",    // ✅ for React
+      "noEmit": true         // don't output any .js files
+    },
+    "include": ["src"]
+  }
+  
