@@ -1,6 +1,7 @@
 import Button from "./Button";
 import PenicillinLogo from "./PenicillinLogo";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 function GetPenicillinOClock() {
   const [time, setTime] = useState(new Date());
@@ -25,15 +26,17 @@ function PenicillinClock({ onClick }) {
   );
 }
 export default function Penicillin() {
-    const [zoomed, setZoomed] = useState(false);
-  
-    function handleZoom() {
-        setZoomed(true);
-        document.body.style="overflow: hidden;"
-        setTimeout(() => {
-          //Change Page
-        }, 2300);
-    }
+  const [zoomed, setZoomed] = useState(false);
+
+  const navigate = useNavigate();
+
+  function handleZoom() {
+    setZoomed(true);
+    document.body.style = "overflow: hidden;";
+    setTimeout(() => {
+      navigate("/badTrip");
+    }, 1600);
+  }
   return (
     <>
       <div className={zoomed ? "zoom" : ""}>
