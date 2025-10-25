@@ -35,6 +35,8 @@ export default function Penicillin() {
     document.body.style = "overflow: hidden;";
     setTimeout(() => {
       navigate("/badTrip");
+    document.body.style = "";
+
     }, 1600);
   }
   return (
