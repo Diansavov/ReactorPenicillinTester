@@ -12,3 +12,9 @@
 .read-the-docs {
   color: #888;
 }
+.zoom {
+  transform: scale(6) translateY(95px) rotate(0);
+  transform-origin: center;
+  transition: transform 2.3s ease;
+  display: inline-block;
+}

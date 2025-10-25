@@ -3,7 +3,7 @@ import penicillinBottle from "../assets/penicillin.svg";
 import "../styles/penicillin-logo.css";
 import { useState, useEffect, useRef } from "react";
 
-export default function PenicillinLogo() {
+export default function PenicillinLogo({ manualTrigger }) {
   const canvasRef = useRef(null);
   const vinesRef = useRef([]);
   const [hovered, setHovered] = useState(false);
@@ -16,6 +16,9 @@ export default function PenicillinLogo() {
   const vineWobbleAmp = 10;
 
   useEffect(() => {
+    if (manualTrigger) {
+      setHovered(true);
+    }
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
     const { width, height } = canvas;
@@ -31,8 +34,7 @@ export default function PenicillinLogo() {
         baseAngle: angle,
         length: 0,
         // 🌿 each vine gets its own random target length (±25%)
-        targetLength:
-          globalMaxLength * (0.75 + Math.random() * 0.5), // between 75%–125%
+        targetLength: globalMaxLength * (0.75 + Math.random() * 0.5), // between 75%–125%
         points: [center],
       };
     });
@@ -67,8 +69,7 @@ export default function PenicillinLogo() {
         points = [];
         for (let d = 0; d < length; d += growthSpeed) {
           const wobble =
-            Math.sin(frame * 0.05 + d * vineWobbleFreq + i * 2) *
-            vineWobbleAmp;
+            Math.sin(frame * 0.05 + d * vineWobbleFreq + i * 2) * vineWobbleAmp;
           const angle = baseAngle + wobble / 200;
           const x = center.x + Math.cos(angle) * d;
           const y = center.y + Math.sin(angle) * d;
@@ -105,7 +106,7 @@ export default function PenicillinLogo() {
 
     animId = requestAnimationFrame(draw);
     return () => cancelAnimationFrame(animId);
-  }, [hovered]);
+  }, [hovered, manualTrigger]);
 
   return (
     <div className="penicillin-container">
